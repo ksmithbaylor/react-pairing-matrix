@@ -1,3 +1,7 @@
 node_modules
 *.swp
 TEST-*.xml
+build/main.css
+build/main.js
+build/specs.js
+dist/*
