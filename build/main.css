@@ -1,3 +1,42 @@
 body {
-	background-color: #EAEAEA;
+	background-color: #FFFFFF;
+    font-family: Arial;
+}
+
+.name, .pair-count, .invisible {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 50px;
+}
+
+.pair-count {
+    border: 1px dashed black;
+}
+
+.paired-0 {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+.paired-1 {
+    background-color: #c0c0c0;
+    color: black;
+}
+
+.paired-2 {
+    background-color: #a0a0a0;
+    color: black;
+}
+
+.name {
+    background-color: green;
+    color: white;
+    border: 1px dashed black;
+}
+
+.invisible {
+    background-color: white;
 }

@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var source = require('vinyl-source-stream'); // Used to stream bundle for further handling
 var browserify = require('browserify');
 var watchify = require('watchify');
-var reactify = require('reactify'); 
+var reactify = require('reactify');
 var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
@@ -14,6 +14,7 @@ var shell = require('gulp-shell');
 var glob = require('glob');
 var livereload = require('gulp-livereload');
 var jasminePhantomJs = require('gulp-jasmine2-phantomjs');
+var jasmine = require('gulp-jasmine-phantom');
 
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
@@ -32,7 +33,7 @@ var browserifyTask = function (options) {
 		cache: {}, packageCache: {}, fullPaths: options.development // Requirement of watchify
 	});
 
-	// We set our dependencies as externals on our app bundler when developing		
+	// We set our dependencies as externals on our app bundler when developing
 	(options.development ? dependencies : []).forEach(function (dep) {
 		appBundler.external(dep);
 	});
@@ -57,12 +58,12 @@ var browserifyTask = function (options) {
     appBundler = watchify(appBundler);
     appBundler.on('update', rebundle);
   }
-      
+
   rebundle();
 
   // We create a separate bundle for our dependencies as they
   // should not rebundle on file changes. This only happens when
-  // we develop. When deploying the dependencies will be included 
+  // we develop. When deploying the dependencies will be included
   // in the application bundle
   if (options.development) {
 
@@ -105,7 +106,7 @@ var browserifyTask = function (options) {
       debug: true,
       require: dependencies
     });
-    
+
     // Run the vendor bundle
     var start = new Date();
     console.log('Building VENDORS bundle');
@@ -117,9 +118,9 @@ var browserifyTask = function (options) {
       .pipe(notify(function () {
         console.log('VENDORS bundle built in ' + (Date.now() - start) + 'ms');
       }));
-    
+
   }
-  
+
 }
 
 var cssTask = function (options) {
@@ -141,7 +142,7 @@ var cssTask = function (options) {
       gulp.src(options.src)
         .pipe(concat('main.css'))
         .pipe(cssmin())
-        .pipe(gulp.dest(options.dest));   
+        .pipe(gulp.dest(options.dest));
     }
 }
 
@@ -153,7 +154,7 @@ gulp.task('default', function () {
     src: './app/main.js',
     dest: './build'
   });
-  
+
   cssTask({
     development: true,
     src: './styles/**/*.css',
@@ -169,7 +170,7 @@ gulp.task('deploy', function () {
     src: './app/main.js',
     dest: './dist'
   });
-  
+
   cssTask({
     development: false,
     src: './styles/**/*.css',
@@ -179,5 +180,8 @@ gulp.task('deploy', function () {
 });
 
 gulp.task('test', function () {
-    return gulp.src('./build/testrunner-phantomjs.html').pipe(jasminePhantomJs());
+    return gulp.src('./spec/**/*.js').pipe(jasmine({
+        integration: true,
+        specHtml: './build/testrunner-phantomjs.html'
+    }));
 });
