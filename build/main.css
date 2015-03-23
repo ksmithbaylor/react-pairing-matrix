@@ -16,27 +16,19 @@ body {
     border: 1px dashed black;
 }
 
-.paired-0 {
-    background-color: #f0f0f0;
-    color: black;
-}
-
-.paired-1 {
-    background-color: #c0c0c0;
-    color: black;
-}
-
-.paired-2 {
-    background-color: #a0a0a0;
-    color: black;
-}
-
 .name {
     background-color: green;
     color: white;
-    border: 1px dashed black;
+    border: 1px solid black;
 }
 
 .invisible {
     background-color: white;
 }
+
+.paired-0 { background-color: #f0f0f0; color: black; }
+.paired-1 { background-color: #c0c0c0; color: black; }
+.paired-2 { background-color: #909090; color: black; }
+.paired-3 { background-color: #606060; color: white; }
+.paired-4 { background-color: #303030; color: white; }
+.paired-5 { background-color: #000000; color: white; }

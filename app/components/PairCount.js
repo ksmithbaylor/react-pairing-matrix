@@ -3,6 +3,12 @@ var React = require('react');
 
 var pairings = {
     Angel: {
+        Brandon: 0,
+        David: 1,
+        Evan: 2,
+        John: 3,
+        Juan: 4,
+        Julie: 5,
         Noah: 1
     },
     Brandon: {
